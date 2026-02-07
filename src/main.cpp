@@ -10,6 +10,7 @@
 #include <render/render.h>
 #include <features/aimbot/aimbot.h>
 #include <features/walkspeed/walkspeed.h>
+#include <teleport/teleport_handler.h>
 #include <settings.h>
 
 std::int32_t main()
@@ -118,13 +119,15 @@ std::int32_t main()
 	printf("\x1b[38;2;169;169;169m- \x1b[38;2;255;255;255mFound \x1b[38;2;169;169;169mRoblox window\x1b[0m\n");
 
 	printf("\n");
-	printf("\x1b[38;2;169;169;169m- \x1b[38;2;255;255;255mAttempting to \x1b[38;2;169;169;169mrun modifications...\x1b[0m\n");
-	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169mcache.cpp\x1b[0m\n");
+	printf("\x1b[38;2;169;169;169m- \x1b[38;2;255;255;255mAttempting to \x1b[38;2;169;169;169mstart threads...\x1b[0m\n");
+	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169mteleport_handler.h\x1b[0m\n");
+	std::thread(teleport::run).detach();
+	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169mcache.h\x1b[0m\n");
 	std::thread(cache::run).detach();
 	rbx::aimbot::initialize();
-	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169maimbot.cpp\x1b[0m\n");
+	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169maimbot.h\x1b[0m\n");
 	std::thread(rbx::aimbot::run).detach();
-	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169mwalkspeed.cpp\x1b[0m\n");
+	printf("\x1b[38;2;169;169;169m- - \x1b[38;2;255;255;255mRunning \x1b[38;2;169;169;169mwalkspeed.h\x1b[0m\n");
 	std::thread(walkspeed::run).detach();
 
 	printf("\n");
@@ -157,7 +160,7 @@ std::int32_t main()
 	printf("\n");
 	auto end_time = std::chrono::high_resolution_clock::now();
 	auto duration = std::chrono::duration<double>(end_time - start_time).count();
-	printf("\x1b[38;2;169;169;169m- \x1b[38;2;255;255;255mheadless \x1b[0;38;5;67;49mnightly \x1b[38;2;169;169;169mfinished loading & took %.2fs\x1b[0m\n", duration);
+	printf("\x1b[38;2;169;169;169m- \x1b[38;2;255;255;255mheadless \x1b[0;38;5;67;49mnightly \x1b[38;2;169;169;169mfinished loading & took %.2fs\x1b[0m\n\n", duration);
 
 	while (true)
 	{

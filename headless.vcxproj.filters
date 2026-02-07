@@ -66,6 +66,9 @@
     <ClCompile Include="ext\imgui\vendors\Dear ImGui\addons\imgui_addons.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\teleport\teleport_handler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\cache\cache.h">
@@ -138,6 +141,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ext\imgui\resources\fonts\pixeltype.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\teleport\teleport_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
