@@ -9,7 +9,31 @@ void cache::run()
 		rbx::player_t local_player_obj = { game::local_player.address };
 		game::local_character = { local_player_obj.get_model_instance().address };
 
-		std::vector<rbx::player_t> players = game::players.get_children<rbx::player_t>();
+		// Get players - with Rivals fix
+		std::vector<rbx::player_t> players;
+
+		if (game::is_rivals)
+		{
+			// Rivals method: child + 0x100, read twice
+			std::uint64_t children_start = memory->read<std::uint64_t>(game::datamodel.address + Offsets::Instance::ChildrenStart);
+			std::uint64_t players_ptr_location = children_start + 0x100;
+
+			// Read once
+			std::uint64_t players_ptr_first = memory->read<std::uint64_t>(players_ptr_location);
+
+			// Read again to get actual Players folder
+			std::uint64_t actual_players = memory->read<std::uint64_t>(players_ptr_first);
+
+			rbx::instance_t players_folder{ actual_players };
+			players = players_folder.get_children<rbx::player_t>();
+
+			printf("[Rivals] Players folder: 0x%llx, Player count: %zu\n", actual_players, players.size());
+		}
+		else
+		{
+			// Normal method
+			players = game::players.get_children<rbx::player_t>();
+		}
 
 		std::vector<cache::entity_t> temp_cache;
 
